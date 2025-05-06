@@ -51,36 +51,36 @@ inline float DegreesToRadians(float degrees)
     return degrees * (3.14159265f / 180.0f);
 }
 
-// 회전행렬 행벡터 기준. 
+// 회전행렬 행벡터 기준. 반시계 방향으로 회전
 inline void MakeXYPlaneRotationMatrix(float M[4][4], float radians)
 {
-    float cos = cosf(radians);
-    float sin = sinf(radians);
+    float cosTheta = cosf(radians);
+    float sinTheta = sinf(radians);
 
-    M[0][0] =  cos;   M[0][1] =  sin;   M[0][2] = 0.0f;   M[0][3] = 0.0f;
-    M[1][0] = -sin;   M[1][1] =  cos;   M[1][2] = 0.0f;   M[1][3] = 0.0f;
-    M[2][0] = 0.0f;   M[2][1] = 0.0f;   M[2][2] = 1.0f;   M[2][3] = 0.0f;
-    M[3][0] = 0.0f;   M[3][1] = 0.0f;   M[3][2] = 0.0f;   M[3][3] = 1.0f;
+    M[0][0] =  cosTheta;   M[0][1] =  sinTheta;   M[0][2] = 0.0f;   M[0][3] = 0.0f;
+    M[1][0] = -sinTheta;   M[1][1] =  cosTheta;   M[1][2] = 0.0f;   M[1][3] = 0.0f;
+    M[2][0] = 0.0f;        M[2][1] = 0.0f;        M[2][2] = 1.0f;   M[2][3] = 0.0f;
+    M[3][0] = 0.0f;        M[3][1] = 0.0f;        M[3][2] = 0.0f;   M[3][3] = 1.0f;
 }
 
 inline void MakeYZPlaneRotationMatrix(float M[4][4], float radians)
 {
-    float cos = cosf(radians);
-    float sin = sinf(radians);
+    float cosTheta = cosf(radians);
+    float sinTheta = sinf(radians);
 
-    M[0][0] = 1.0f;    M[0][1] = 0.0f;   M[0][2] = 0.0f;   M[0][3] = 0.0f;
-    M[1][0] = 0.0f;    M[1][1] =  cos;   M[1][2] = sin;   M[1][3] = 0.0f;
-    M[2][0] = 0.0f;    M[2][1] = -sin;   M[2][2] = cos;   M[2][3] = 0.0f;
-    M[3][0] = 0.0f;    M[3][1] = 0.0f;   M[3][2] = 0.0f;   M[3][3] = 1.0f;
+    M[0][0] = 1.0f;    M[0][1] = 0.0f;        M[0][2] = 0.0f;       M[0][3] = 0.0f;
+    M[1][0] = 0.0f;    M[1][1] =  cosTheta;   M[1][2] = sinTheta;   M[1][3] = 0.0f;
+    M[2][0] = 0.0f;    M[2][1] = -sinTheta;   M[2][2] = cosTheta;   M[2][3] = 0.0f;
+    M[3][0] = 0.0f;    M[3][1] = 0.0f;        M[3][2] = 0.0f;       M[3][3] = 1.0f;
 }
 
 inline void MakeZXPlaneRotationMatrix(float M[4][4], float radians)
 {
-    float cos = cosf(radians);
-    float sin = sinf(radians);
+    float cosTheta = cosf(radians);
+    float sinTheta = sinf(radians);
 
-    M[0][0] = cos;     M[0][1] = 0.0f;   M[0][2] = -sin;   M[0][3] = 0.0f;
-    M[1][0] = 0.0f;    M[1][1] = 1.0f;   M[1][2] = 0.0f;   M[1][3] = 0.0f;
-    M[2][0] = sin;     M[2][1] = 0.0f;   M[2][2] = cos;    M[2][3] = 0.0f;
-    M[3][0] = 0.0f;    M[3][1] = 0.0f;   M[3][2] = 0.0f;   M[3][3] = 1.0f;
+    M[0][0] = cosTheta;     M[0][1] = 0.0f;   M[0][2] = -sinTheta;   M[0][3] = 0.0f;
+    M[1][0] = 0.0f;         M[1][1] = 1.0f;   M[1][2] = 0.0f;        M[1][3] = 0.0f;
+    M[2][0] = sinTheta;     M[2][1] = 0.0f;   M[2][2] = cosTheta;    M[2][3] = 0.0f;
+    M[3][0] = 0.0f;         M[3][1] = 0.0f;   M[3][2] = 0.0f;        M[3][3] = 1.0f;
 }
