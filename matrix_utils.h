@@ -84,3 +84,21 @@ inline void MakeZXPlaneRotationMatrix(float M[4][4], float radians)
     M[2][0] = sinTheta;     M[2][1] = 0.0f;   M[2][2] = cosTheta;    M[2][3] = 0.0f;
     M[3][0] = 0.0f;         M[3][1] = 0.0f;   M[3][2] = 0.0f;        M[3][3] = 1.0f;
 }
+
+// 행벡터 기준 이동행렬
+inline void TranslationMatrix(float M[4][4], float TranslateX, float TranslateY, float TranslateZ)
+{
+    M[0][0] = 1.0f;         M[0][1] = 0.0f;         M[0][2] = 0.0;           M[0][3] = 0.0f;
+    M[1][0] = 0.0f;         M[1][1] = 1.0f;         M[1][2] = 0.0f;          M[1][3] = 0.0f;
+    M[2][0] = 0.0f;         M[2][1] = 0.0f;         M[2][2] = 1.0f;          M[2][3] = 0.0f;
+    M[3][0] = TranslateX;   M[3][1] = TranslateY;   M[3][2] = TranslateZ;    M[3][3] = 1.0f;
+}
+
+// 행벡터 기준 스케일행렬
+inline void ScaleMatrix(float M[4][4], float ScaleX, float ScaleY, float ScaleZ)
+{
+    M[0][0] = ScaleX;       M[0][1] = 0.0f;         M[0][2] = 0.0f;          M[0][3] = 0.0f;
+    M[1][0] = 0.0f;         M[1][1] = ScaleY;       M[1][2] = 0.0f;          M[1][3] = 0.0f;
+    M[2][0] = 0.0f;         M[2][1] = 0.0f;         M[2][2] = ScaleZ;        M[2][3] = 0.0f;
+    M[3][0] = 0.0f;         M[3][1] = 0.0f;         M[3][2] = 0.0f;          M[3][3] = 1.0f;
+}
