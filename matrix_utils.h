@@ -52,7 +52,11 @@ inline void MultiplyMatrix(float out[4][4], const float A[4][4], const float B[4
     // {
     //     for (int col = 0; col < 4; col++) // 출력 열
     //     {
-            
+    //         	out[row][col] =
+    //                 A[row][0] * B[0][col] +
+    //                 A[row][1] * B[1][col] +
+    //                 A[row][2] * B[2][col] +
+    //                 A[row][3] * B[3][col];
     //     }
     // }
 
