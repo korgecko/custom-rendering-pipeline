@@ -134,13 +134,27 @@ inline void MakeZXPlaneRotationMatrix(float M[4][4], float radians)
 }
 
 // 행벡터 기준 이동행렬
-inline void TranslationMatrix(float M[4][4], float TranslateX, float TranslateY, float TranslateZ)
+inline void TranslationMatrix(float M[4][4], float translateX, float translateY, float translateZ)
 {
     M[0][0] = 1.0f;         M[0][1] = 0.0f;         M[0][2] = 0.0;           M[0][3] = 0.0f;
     M[1][0] = 0.0f;         M[1][1] = 1.0f;         M[1][2] = 0.0f;          M[1][3] = 0.0f;
     M[2][0] = 0.0f;         M[2][1] = 0.0f;         M[2][2] = 1.0f;          M[2][3] = 0.0f;
-    M[3][0] = TranslateX;   M[3][1] = TranslateY;   M[3][2] = TranslateZ;    M[3][3] = 1.0f;
+    M[3][0] = translateX;   M[3][1] = translateY;   M[3][2] = translateZ;    M[3][3] = 1.0f;
 }
 
+// Scale 행렬 변환 적용하기. 
+// 이후에 Rotation 에서 Translation 까지. 
+inline void AppendTransform(float matrix[4][4], const float transform[4][4])
+{
+    float temp[4][4];
+    Multiplymatrix(temp, matrix, transform);
+    std::memcpy(matrix, temp, sizeof(temp));
+}
 
+inline void AppendScale(float targetMatrix[4][4], float scaleX, float scaleY, float scaleZ)
+{
+    float scaleMatrix[4][4];
 
+    ScaleMatrix(scaleMatrix, scaleX, scaleY, scaleZ);
+    AppendTransform(targetMatrix, scaleMatrix);
+}
