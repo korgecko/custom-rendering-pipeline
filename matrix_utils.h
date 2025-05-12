@@ -134,12 +134,12 @@ inline void MakeZXPlaneRotationMatrix(float M[4][4], float radians)
 }
 
 // 행벡터 기준 이동행렬
-inline void TranslationMatrix(float M[4][4], float translateX, float translateY, float translateZ)
+inline void TranslationMatrix(float M[4][4], float TranslateX, float TranslateY, float TranslateZ)
 {
-    M[0][0] = 1.0f;         M[0][1] = 0.0f;         M[0][2] = 0.0;           M[0][3] = 0.0f;
+    M[0][0] = 1.0f;         M[0][1] = 0.0f;         M[0][2] = 0.0f;          M[0][3] = 0.0f;
     M[1][0] = 0.0f;         M[1][1] = 1.0f;         M[1][2] = 0.0f;          M[1][3] = 0.0f;
     M[2][0] = 0.0f;         M[2][1] = 0.0f;         M[2][2] = 1.0f;          M[2][3] = 0.0f;
-    M[3][0] = translateX;   M[3][1] = translateY;   M[3][2] = translateZ;    M[3][3] = 1.0f;
+    M[3][0] = TranslateX;   M[3][1] = TranslateY;   M[3][2] = TranslateZ;    M[3][3] = 1.0f;
 }
 
 // Scale 행렬 변환 적용하기. 
@@ -157,4 +157,35 @@ inline void AppendScale(float targetMatrix[4][4], float scaleX, float scaleY, fl
 
     ScaleMatrix(scaleMatrix, scaleX, scaleY, scaleZ);
     AppendTransform(targetMatrix, scaleMatrix);
+}
+
+// Z축 회전 (XY 평면 상 회전)
+inline void AppendRotateAroundZAxis(float matrix[4][4], float radians)
+{
+    float temp[4][4];
+    MakeXYPlaneRotationMatrix(temp, radians);
+    AppendTransform(matrix, temp);
+}
+
+// X축 회전 (YZ 평면 상 회전)
+inline void AppendRotateAroundXAxis(float matrix[4][4], float radians)
+{
+    float temp[4][4];
+    MakeYZPlaneRotationMatrix(temp, radians);
+    AppendTransform(matrix, temp);
+}
+
+// Y축 회전 (ZX 평면 상 회전)
+inline void AppendRotateAroundYAxis(float matrix[4][4], float radians)
+{
+    float temp[4][4];
+    MakeZXPlaneRotationMatrix(temp, radians);
+    AppendTransform(matrix, temp);
+}
+
+inline void AppendTranslation(float matrix[4][4], float TranslateX, float TranslateY, float TranslateZ)
+{
+    float temp[4][4];
+    TranslationMatrix(temp, TranslateX, TranslateY, TranslateZ);
+    AppendTransform(matrix, temp);
 }
