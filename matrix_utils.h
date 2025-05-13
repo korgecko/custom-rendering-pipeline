@@ -160,7 +160,7 @@ inline void AppendScale(float targetMatrix[4][4], float scaleX, float scaleY, fl
 }
 
 // Z축 회전 (XY 평면 상 회전)
-inline void AppendRotateAroundZAxis(float matrix[4][4], float radians)
+inline void AppendRotateAroundAxisZ(float matrix[4][4], float radians)
 {
     float temp[4][4];
     MakeXYPlaneRotationMatrix(temp, radians);
@@ -168,7 +168,7 @@ inline void AppendRotateAroundZAxis(float matrix[4][4], float radians)
 }
 
 // X축 회전 (YZ 평면 상 회전)
-inline void AppendRotateAroundXAxis(float matrix[4][4], float radians)
+inline void AppendRotateAroundAxisX(float matrix[4][4], float radians)
 {
     float temp[4][4];
     MakeYZPlaneRotationMatrix(temp, radians);
@@ -176,7 +176,7 @@ inline void AppendRotateAroundXAxis(float matrix[4][4], float radians)
 }
 
 // Y축 회전 (ZX 평면 상 회전)
-inline void AppendRotateAroundYAxis(float matrix[4][4], float radians)
+inline void AppendRotateAroundAxisY(float matrix[4][4], float radians)
 {
     float temp[4][4];
     MakeZXPlaneRotationMatrix(temp, radians);
@@ -189,3 +189,25 @@ inline void AppendTranslation(float matrix[4][4], float TranslateX, float Transl
     TranslationMatrix(temp, TranslateX, TranslateY, TranslateZ);
     AppendTransform(matrix, temp);
 }
+
+
+
+// Model Matrix 를 구하기 위해서 S * Rz * Rx * Ry * T 순차적으로 행렬 곱셈
+// Rz * Rx * Ry 를 먼저 행렬 곱셈
+
+float Rz[4][4], Rx[4][4], Ry[4][4]; 
+
+MakeXYPlaneRotationMatrix(Rz, rotZ); // Z 축 기준으로 XY 평면에서의 회전
+MakeYZPlaneRotationMatrix(Rx, rotX); // X 축 기준으로 YZ 평면에서의 회전
+MakeZXPlaneRotationMatrix(Ry, rotY); // Y 축 기준으로 ZX 평면에서의 회전
+
+// Rzxy = Rz * Rx * Ry
+float Rzxy[4][4], temp[4][4];
+
+// temp = Rz * Rx
+MultiplyMatrix(temp, Rz, Rx);
+
+// Rzxy = temp * Ry
+MultiplyMatrix(Rzxy, temp, Ry);
+
+
