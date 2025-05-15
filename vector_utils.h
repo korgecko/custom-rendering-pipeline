@@ -34,4 +34,10 @@ struct Vector3
 
     }
 
+    Vector InnerProduct() const {}
+
+    Vector DotProduct() const {}
+
+
+
 }
