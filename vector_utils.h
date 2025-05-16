@@ -38,6 +38,6 @@ struct Vector3
 
     Vector3 DotProduct() const {}
 
-
+    Vector3 CrossProduct() const {}
 
 }
