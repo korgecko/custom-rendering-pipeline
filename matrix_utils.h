@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 
+
 // 4x4 행렬을 0으로 초기화
 inline void ZeroMatrix(float M[4][4])
 {
@@ -45,6 +46,39 @@ inline void TransposeMatrix(float M[4][4])
         }
     }
 }
+
+struct Matrix4x4 { 
+    float m[4][4]; 
+};
+
+
+Matrix4x4 MultipyMatrix(const Matrix4x4& A, const Matrix4x4& B) {
+    Matrix4x4 result;
+
+    result.m[0][0] = A.m[0][0]*B.m[0][0] + A.m[0][1]*B.m[1][0] + A.m[0][2]*B.m[2][0] + A.m[0][3]*B.m[3][0];
+    result.m[0][1] = A.m[0][0]*B.m[0][1] + A.m[0][1]*B.m[1][1] + A.m[0][2]*B.m[2][1] + A.m[0][3]*B.m[3][1];
+    result.m[0][2] = A.m[0][0]*B.m[0][2] + A.m[0][1]*B.m[1][2] + A.m[0][2]*B.m[2][2] + A.m[0][3]*B.m[3][2];
+    result.m[0][3] = A.m[0][0]*B.m[0][3] + A.m[0][1]*B.m[1][3] + A.m[0][2]*B.m[2][3] + A.m[0][3]*B.m[3][3];
+
+    result.m[1][0] = A.m[1][0]*B.m[0][0] + A.m[1][1]*B.m[1][0] + A.m[1][2]*B.m[2][0] + A.m[1][3]*B.m[3][0];
+    result.m[1][1] = A.m[1][0]*B.m[0][1] + A.m[1][1]*B.m[1][1] + A.m[1][2]*B.m[2][1] + A.m[1][3]*B.m[3][1];
+    result.m[1][2] = A.m[1][0]*B.m[0][2] + A.m[1][1]*B.m[1][2] + A.m[1][2]*B.m[2][2] + A.m[1][3]*B.m[3][2];
+    result.m[1][3] = A.m[1][0]*B.m[0][3] + A.m[1][1]*B.m[1][3] + A.m[1][2]*B.m[2][3] + A.m[1][3]*B.m[3][3];
+
+    result.m[2][0] = A.m[2][0]*B.m[0][0] + A.m[2][1]*B.m[1][0] + A.m[2][2]*B.m[2][0] + A.m[2][3]*B.m[3][0];
+    result.m[2][1] = A.m[2][0]*B.m[0][1] + A.m[2][1]*B.m[1][1] + A.m[2][2]*B.m[2][1] + A.m[2][3]*B.m[3][1];
+    result.m[2][2] = A.m[2][0]*B.m[0][2] + A.m[2][1]*B.m[1][2] + A.m[2][2]*B.m[2][2] + A.m[2][3]*B.m[3][2];
+    result.m[2][3] = A.m[2][0]*B.m[0][3] + A.m[2][1]*B.m[1][3] + A.m[2][2]*B.m[2][3] + A.m[2][3]*B.m[3][3];
+
+    result.m[3][0] = A.m[3][0]*B.m[0][0] + A.m[3][1]*B.m[1][0] + A.m[3][2]*B.m[2][0] + A.m[3][3]*B.m[3][0];
+    result.m[3][1] = A.m[3][0]*B.m[0][1] + A.m[3][1]*B.m[1][1] + A.m[3][2]*B.m[2][1] + A.m[3][3]*B.m[3][1];
+    result.m[3][2] = A.m[3][0]*B.m[0][2] + A.m[3][1]*B.m[1][2] + A.m[3][2]*B.m[2][2] + A.m[3][3]*B.m[3][2];
+    result.m[3][3] = A.m[3][0]*B.m[0][3] + A.m[3][1]*B.m[1][3] + A.m[3][2]*B.m[2][3] + A.m[3][3]*B.m[3][3];
+
+    return result;
+}
+
+
 
 inline void MultiplyMatrix(float out[4][4], const float A[4][4], const float B[4][4])
 {
@@ -210,6 +244,4 @@ MultiplyMatrix(temp, Rz, Rx);
 // Rzxy = temp * Ry
 MultiplyMatrix(Rzxy, temp, Ry);
 
-// Todo 
-// “Instead of passing the output matrix as a parameter, 
-// return it as the result of the function to improve code readability.”
+
