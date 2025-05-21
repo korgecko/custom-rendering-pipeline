@@ -87,18 +87,21 @@ struct Vector3 {
         v.normalize();
         return v;
     }
+
+    
+    Vector3 GetUnsafeNormal() const {
+        float Scale = FMath::InvSqrt(x*x + y*y + z*z);
+        return {x * Scale, y * Scale, z * Scale};
+    }
+
+    // Vector3 GetSafeNormal() const {
+
+    // }
 };
 
-Todo
-/* 
-Vector3 GetSafeNormal() const
-{
+// Todo
+//     Vector3 InnerProduct() const {
 
-}
+//     Vector3 DotProduct() const {}
 
-Vector3 InnerProduct() const {}
-
-Vector3 DotProduct() const {}
-
-Vector3 CrossProduct() const {}
- */
+//     Vector3 CrossProduct() const {}
