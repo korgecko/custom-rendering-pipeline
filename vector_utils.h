@@ -19,19 +19,19 @@ struct Vector3 {
     }
 
     // 길이(크기) 반환
-    float length() const {
+    float Length() const {
         return std::sqrt(x*x + y*y + z*z);
     }
 
     // 길이 제곱 반환 (루트 연산 없이 빠르게 비교할 때 사용)
-    float squaredLength() const {
+    float SquaredLength() const {
         return x*x + y*y + z*z;
     }
 
     // ============================================
     // 방식 1: 멤버 함수로 덧셈 구현
     // 사용: Vector3 c = a.add(b);
-    Vector3 add(const Vector3& other) const {
+    Vector3 Add(const Vector3& other) const {
         return Vector3(
             x + other.x,
             y + other.y,
@@ -77,26 +77,37 @@ struct Vector3 {
 
     bool normalize() {
         float len = length();
-        if (len <= 0.0f) return false;
-        x /= len; y /= len; z /= len;
+        if (len <= 0.0f) 
+            return false;
+        x /= len; 
+        y /= len; 
+        z /= len;
         return true;
     }
 
-    Vector3 normalized() const {
+    Vector3 Normalized() const {
         Vector3 v(*this);
         v.normalize();
         return v;
     }
-
     
     Vector3 GetUnsafeNormal() const {
-        float Scale = FMath::InvSqrt(x*x + y*y + z*z);
+        float Scale = FMath::InvSqrt(SquaredLength());
         return {x * Scale, y * Scale, z * Scale};
+        // 주의: 벡터의 크기가 0이면 NaN이 발생할 수 있습니다. 반드시 검사 후 사용하세요.
     }
 
-    // Vector3 GetSafeNormal() const {
+    Vector3 GetSafeNormal() const {
+        float sqLength = SquaredLength();
 
-    // }
+        // 길이가 0 이면 정규화 할 수 없음. 이 경우에 0 벡터 반환
+        if (sqLength <= 0.0f) {
+            return Vector3(0.0f, 0.0f, 0.0f); // 0 벡터 반환
+        }
+
+        // 벡터가 0 이 아니라면 정규화된 벡터 반환
+        return GetUnsafeNormal();
+    }
 };
 
 // Todo
