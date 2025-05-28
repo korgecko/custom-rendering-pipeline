@@ -1,6 +1,8 @@
 #pragma once
 #include <cmath>
 
+#include "Math_utils.h"
+
 struct Vector3 {
     float x, y, z;
 
@@ -110,6 +112,24 @@ struct Vector3 {
     }
 };
 
+inline float operator|(const Vector3& other) const 
+{
+    return 
+        x * other.x 
+        + y * other.y
+        + z * other.z;
+}
+
+inline float Vector3::Dot(const Vector3& other) const 
+{
+    return *this | other;
+}
+
+inline float Vector3::DotProduct(const FVector& A, const FVector& B)
+{
+    return A | B;
+}
+ 
 // Todo
 //     Vector3 InnerProduct() const {
 
