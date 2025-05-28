@@ -45,7 +45,8 @@ public:
 	//FMatrix Projection;
 	float aspectRatio = 1.0f;
 
-//private:
+private:
+    UImGuiManager* UIManager;
 public:
 	//UImGuiManager* UIManager;
 	//UWorld* GWorld;

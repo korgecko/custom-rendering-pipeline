@@ -1,4 +1,5 @@
 #include "EngineLoop.h"
+#include "ImGuiManager.h"
 
 extern LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -366,10 +367,8 @@ void FEngineLoop::Tick()
 		renderer.PrepareShader();
 		uBallManager.UpdateBalls();
 		uBallManager.RenderBalls(&renderer);
-		ImGui_ImplDX11_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
-		ImGui::Begin("Jungle Property Window");
+		UIManager->BeginFrame();
+
 		//ImGui::Checkbox("Gravity", &bEnableGravity);
 		//ImGui::SameLine();
 		//ImGui::SliderFloat("Gravity Strength", &gravityStrength, -0.05f, 0.05f, "%.3f");
